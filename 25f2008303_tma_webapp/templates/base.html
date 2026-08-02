@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lange="en">
+<head>
+	<meta charset="UTF-8">
+	<title> TREKKING MANAGEMENT APPLICATION </title>
+	<link>
+</head>
+<body>
+
+	<h1> TREKKING MANAGEMENT APPLICATION </h1>
+	
+	<p>
+        	<a href="{{ url_for('home') }}">Home</a>
+        	<!--more links will be added later-->
+    	</p>
+	<hr>
+
+    	<div>
+        	{% block content %}
+
+        	{% endblock %}
+    	</div>
+
+</body>
+</html>
