@@ -1,0 +1,27 @@
+<!-- admin dashboard -->
+
+
+{% extends "base.html" %}
+{% block content %}
+
+<h2> ADMIN DASHBOARD </h2>
+
+<p>
+<h3>Welcome!</h3><br>
+Currently logged in as: {{session.get("name")}}
+<br>
+Role:{{session.get("role")}}
+<br>
+</p>
+
+<p>
+This is only for testing purpose for M2. More functionality to be added later
+</p>
+
+<p>
+
+<a href="{{url_for("logout")}}">LOGOUT</a>
+
+</p>
+
+{% endblock %}

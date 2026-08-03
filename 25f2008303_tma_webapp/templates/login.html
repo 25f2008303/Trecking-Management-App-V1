@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+{% if error %}
+      <p style="color:red;">{{error}}</p>
+{% endif %}
+
+
+
+<h2> LOGIN </h2>
+
+<form method="post" action="{{url_for('login')}}">
+
+<p>
+	<label> EMAIL: </label>
+	<br>
+	<input type="email" name="email">
+</p>
+
+<p>
+	<label> PASSWORD: </label>
+	<br>
+	<input type="password" name="password">
+</p>
+
+<p>
+	<button type="submit">Login</button	
+</p>
+
+</form>
+
+<p>
+New User? Click to register as User of Staff at this link:
+<br>
+<a href="{{url_for('register')}}">Register</a>
+</p>
+
+{% endblock %}
