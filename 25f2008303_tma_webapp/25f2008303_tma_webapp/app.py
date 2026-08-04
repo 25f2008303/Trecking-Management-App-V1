@@ -179,11 +179,47 @@ def trekdel(id1):
 
 #------------------------------------------------------------------------------------------------------------------------------------------------------
 
-@app.route("/staff/dashboard")
+@app.route("/staff/dashboard",methods=["GET","POST"])
 def staffdash():
     if session.get("role","").lower()!="staff":
         return redirect(url_for("login"))
-    return render_template("staffdash.html")
+
+    MyDB=connect()
+    MC=MyDB.cursor()
+
+    MC.execute("""SELECT * FROM treks WHERE assigned_staffid=? ORDER by id DESC""",(session.get("user_id"),))
+    at=MC.fetchall()
+
+    MyDB.close()
+
+    return render_template("staffdash.html",assigned_treks=at)
+
+
+@app.route("/staff/dashboard/managetreks/<int:id1>",methods=["GET","POST"]) 
+def trekman(id1):
+    if session.get("role","").lower()!="staff":
+        return redirect(url_for("login"))
+    MyDB=connect()
+    MC=MyDB.cursor()
+
+    if request.method=="POST":
+        status=request.form.get("status")
+        MC.execute("""UPDATE treks SET status=? WHERE id=? AND assigned_staffid=?""",(status,id1, session.get("user_id")))
+        MyDB.commit()
+        MyDB.close()
+        
+        return redirect(url_for("trekman",id1=id1))
+
+    MC.execute("""SELECT * FROM treks WHERE id=? AND assigned_staffid = ?""",(id1, session.get("user_id")))
+    t=MC.fetchone()
+    MyDB.close()
+
+    if t is None:
+        return redirect(url_for("staffdash"))
+
+    return render_template("trekman.html",trek=t)
+
+#------------------------------------------------------------------------------------------------------------------------------------------------------    
 
 @app.route("/user/dashboard")
 def userdash():

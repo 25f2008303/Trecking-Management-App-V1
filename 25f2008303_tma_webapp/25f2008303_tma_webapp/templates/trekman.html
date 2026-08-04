@@ -1,0 +1,48 @@
+<!-- extension of staffdash for managing a assigned trek -->
+
+{% extends "base.html" %}
+{% block content %}
+
+
+<div class="container">
+	<h2>Manage Trek to: {{trek.trek_name.upper()}}</h2>
+
+	<div class="card layout2">
+		<h3>Trek details:</h3>
+		<p><h5>Location: {{trek.location}}</h5></p>
+		<p><h5>Difficulty: {{trek.difficulty}}</h5></p>
+		<p><h5>Trek Duration: {{trek.duration_in_days}} day(s)</h5></p>
+		<p><h5>Start Date: {{trek.start_date}}</h5></p>
+		<p><h5>End Date: {{trek.end_date}}</h5></p>
+		<p><h5>Participants(Dummy): {{trek.available_slots}}</h5></p>
+		<p><h5>Total Slots: {{trek.available_slots}}</h5></p>
+		<p><h5>Status: {{trek.status}}</h5></p>
+	</div>
+	
+	<div class="card layout2">
+		<h4>UPDATE TREK STATUS</h4>
+		<form method="POST" class="fg">
+            	<select name="status" required>
+                <option value="open"{% if trek.status=="open" %}selected{% endif %}>Open</option>
+                <option value="started"{% if trek.status=="started" %}selected{% endif %}>Started</option>
+                <option value="completed"{% if trek.status=="completed" %}selected{% endif %}>Completed</option>
+                </select>
+		<button type="submit">Update Status</button>
+		</form>
+	</div>
+
+	<div class="card layout2">
+		<h4>Participant Details:</h4>
+		<h4>DETAILS OF PARTICIPANTS WILL BE ADDED AFTER COMPLETION OF USER DASHBOARD FUNCTIONALITY. ONLY THIS MUCH IN MILESTONE 4</h4>
+	</div>
+
+	<div style="text-align:center;">
+		<p><a class="action-link edit-link" href="{{url_for('staffdash')}}" style="font-size:24px;">Return to Dashboard</a></p>
+	</div>
+</div>
+<br>
+<br>
+<br>
+<br>
+
+{% endblock %}

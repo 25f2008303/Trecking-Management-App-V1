@@ -1,25 +1,59 @@
 <!-- staff dashboard -->
 
-
 {% extends "base.html" %}
 {% block content %}
 
-<h2> STAFF DASHBOARD </h2>
 
-<p>
-Currently Logged in as:{{session.get("name")}}
-<br>
-Role:{{session.get("role")}}
-<br>
-</p>
+<div class="container">
+	<h2> STAFF DASHBOARD </h2>
+	<h3> Welcome {{session.get("name")}} </h3>
+	<br>
+	<div class="card">
+		<h4>Number of assigned treks(Lifetime): {{assigned_treks|length}}</h4>
+		<p>
+		<h4>Number of tasks which are open to you: (Dummy, will add logic for this later)</h4> 
+		</p>
+	</div>
 
-<p>
-Only as testing for M2. Later functionalities such as Assigned treks along with participants will be added
-</p>
+	<div class="card layout2">
+		<h3>Information on your Assigned Trek(s)</h3>
+		
+		{% if assigned_treks %}
+		<table>
+		<thead>
+		<tr>
+		<th>ID</th>
+		<th>Trek Name</th>
+		<th>Location</th>
+		<th>Duration(in Days)</th>
+		<th>No. of Participants(will only show available slots for now</th>
+		<th>Start Date</th>
+		<th>Status</th>
+		<th>Manage Trek</th>
+		</tr>
+		</thead>
 
-<p>
+		<tbody>
+		{% for i in assigned_treks %}
+		<tr>
+		<td>{{i.id}}</td>
+		<td>{{i.trek_name}}</td>
+		<td>{{i.location}}</td>
+		<td>{{i.duration_in_days}}</td>
+		<td>{{i.available_slots}}</td>
+		<td>{{i.start_date}}</td>
+		<td>{{i.status}}</td>
+		<td><a class="action-link edit-link" href="{{url_for('trekman',id1=i.id) }}">More Info/Manage</a></td>
+		</tr>
+		{% endfor %}
+		</tbody>
+		</table>
+		{% else %}
+		<h4>No treks have been assigned you(yet)</h4>
+		{% endif %}
+	</div>
 
-<a href="{{url_for("logout")}}">LOGOUT</a>
-</p>
+</div>
+
 
 {% endblock %}
