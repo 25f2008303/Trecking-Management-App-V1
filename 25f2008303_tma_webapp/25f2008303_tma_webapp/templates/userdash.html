@@ -1,0 +1,25 @@
+<!-- user dashboard -->
+
+
+{% extends "base.html" %}
+{% block content %}
+
+<h2>USER/TREKKER DASHBOARD</h2>
+
+<p>
+Currently Logged in as:{{session.get("name")}}
+<br>
+Role:{{session.get("role")}}
+<br>
+</p>
+
+<p>
+Only for M2 testing purposes. Functionalities such as available treks, bookings etc added later.
+</p>
+
+<p>
+<a href="{{url_for("logout")}}">LOGOUT</a>
+</p>
+
+
+{% endblock %}
