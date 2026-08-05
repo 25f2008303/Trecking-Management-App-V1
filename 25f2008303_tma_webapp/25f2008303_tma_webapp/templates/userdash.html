@@ -4,22 +4,28 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h2>USER/TREKKER DASHBOARD</h2>
+<div class="container">
+	<h2>USER/TREKKER DASHBOARD</h2>
+	<h3>Welcome Trekker {{session.get("name")}}</h3>
+	<div class="card layout2">
+		<h3>Available Trek(s)</h3>
+		<h4>Click the link to check currently available treks to you which you have NOT BOOKED(yet)</h4>
+		<p><a class="action-link edit-link" href="{{url_for('availtreks')}}">Click Here</a></p> <!-- placeholder links for now-->
+	</div>
+	
+	<div class="card layout2">
+		<h3>Current Bookings(s)</h3>
+		<p><h4>Click the link to check your ACTIVE BOOKED TREKS</h4></p>
+		<a class="action-link edit-link" href="{{url_for('currtreks')}}">Click Here</a> <!-- placeholder links for now-->
+	</div>
 
-<p>
-Currently Logged in as:{{session.get("name")}}
-<br>
-Role:{{session.get("role")}}
-<br>
-</p>
+	<div class="card layout2">
+		<h3>Trek History</h3>
+		<p><h4>Check out your TREK HISTORY</h4></p>
+		<a class="action-link edit-link" href="{{url_for('trekhist')}}">Click Here</a> <!-- placeholder links for now-->
+	</div>
 
-<p>
-Only for M2 testing purposes. Functionalities such as available treks, bookings etc added later.
-</p>
-
-<p>
-<a href="{{url_for("logout")}}">LOGOUT</a>
-</p>
-
-
+</div>
 {% endblock %}
+
+		

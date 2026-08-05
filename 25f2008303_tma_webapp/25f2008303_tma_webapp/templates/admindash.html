@@ -27,7 +27,7 @@
 
 		<div class="card">
 			<h4>{{total_bookings}}</h4>
-			<p>Total Bookings</p>
+			<p>Total Bookings(Including Completed ones)</p>
 		</div>
 
 	</div>
@@ -92,7 +92,7 @@
                     	<td>{{trek.staff_name if trek.staff_name else "Not assigned yet"}}</td>
 			<td>
 			<a class="action-link edit-link" href="{{url_for('trekedit',id1=trek.id)}}">EDIT</a>
-			<a class="action-link delete-link" href="{{url_for('trekdel',id1	=trek.id)}}">DELETE</a>
+			<a class="action-link delete-link" href="{{url_for('trekdel',id1=trek.id)}}">DELETE</a>
 			</td>
                 	</tr>
                 	{% endfor %}

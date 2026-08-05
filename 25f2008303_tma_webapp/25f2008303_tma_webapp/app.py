@@ -223,9 +223,120 @@ def trekman(id1):
 
 @app.route("/user/dashboard")
 def userdash():
-    if session.get("role","").lower() not in ("user","trekker"):
+    if session.get("role", "").lower() not in ("user", "trekker"):
         return redirect(url_for("login"))
     return render_template("userdash.html")
+
+
+@app.route("/user/dashboard/availtreks")
+def availtreks():
+    if session.get("role","").lower() not in ("user","trekker"):
+        return redirect(url_for("login"))
+    
+    MyDB=connect()
+    MC=MyDB.cursor()
+    
+    MC.execute("""SELECT * FROM treks WHERE status='open' AND available_slots > 0 AND id NOT IN(SELECT trek_id FROM bookings WHERE user_id=? AND status IN
+                ('booked','started','completed')) ORDER BY id DESC""",(session.get("user_id"),))
+    t=MC.fetchall()
+
+    MyDB.close()
+    return render_template("availtreks.html",treks=t)
+
+@app.route("/user/dashboard/currtreks")
+def currtreks():
+    if session.get("role","").lower() not in ("user","trekker"):
+        return redirect(url_for("login"))
+
+    MyDB=connect()
+    MC=MyDB.cursor()
+
+    MC.execute("""SELECT b.*, t.status as stat1, t.trek_name,t.location,t.start_date,t.end_date FROM bookings b JOIN treks t ON b.trek_id=t.id WHERE b.user_id=?
+                AND b.status='booked' and t.status!='completed' ORDER BY b.id DESC""",(session.get("user_id"),))
+    cb=MC.fetchall()
+
+    MyDB.close()
+    return render_template("currtreks.html",current=cb)
+    
+@app.route("/user/dashboard/trekhist")
+def trekhist():
+    if session.get("role","").lower() not in ("user","trekker"):
+        return redirect(url_for("login"))
+
+    MyDB=connect()
+    MC=MyDB.cursor()
+
+    MC.execute("""SELECT b.*,t.trek_name,t.location,t.start_date,t.end_date,t.duration_in_days FROM bookings b JOIN treks t ON b.trek_id=t.id
+                WHERE b.user_id=? AND t.status IN ('completed') ORDER BY b.id DESC""",(session.get("user_id"),))
+    hb=MC.fetchall()
+
+    MyDB.close()
+    return render_template("trekhist.html",history=hb)
+
+#routes for looking and booking in one of the available treks:
+@app.route("/user/dashboard/availtreks/booking/<int:id1>")
+def trekdetails(id1):
+    if session.get("role","").lower() not in ("user","trekker"):
+        return redirect(url_for("login"))
+
+    MyDB=connect()
+    MC=MyDB.cursor()
+
+    MC.execute("""SELECT * FROM treks WHERE id=? AND status='open' AND available_slots > 0""",(id1,))
+    t=MC.fetchone()
+    MyDB.close()
+    
+    return render_template("trekdetails.html",trek=t)
+
+@app.route("/user/dashboard/availtreks/booking/<int:id1>/confirm",methods=["GET","POST"])
+def trekconfirm(id1):
+    if session.get("role","").lower() not in ("user", "trekker"):
+        return redirect(url_for("login"))
+
+    MyDB=connect()
+    MC=MyDB.cursor()
+    
+    MC.execute("""INSERT INTO bookings(user_id,trek_id,booking_date,status) VALUES (?,?,date('now'),'booked')""",(session.get("user_id"),id1))
+    MC.execute("""UPDATE treks SET available_slots=available_slots-1 WHERE id=? AND available_slots > 0""",(id1,))
+    MyDB.commit()
+    MyDB.close()
+
+    return render_template("trekconfirm.html")
+
+#route for cancelling booked trek
+@app.route("/user/dashboard/currtreks/manage/<int:id1>")
+def managebooking(id1):
+    if session.get("role","").lower() not in ("user","trekker"):
+        return redirect(url_for("login"))
+    
+    MyDB=connect()
+    MC=MyDB.cursor()
+    MC.execute("""SELECT b.trek_id,b.id,b.user_id,t.* FROM bookings b JOIN treks t ON b.trek_id=t.id WHERE b.id=? AND b.user_id=?"""
+                ,(id1,session.get("user_id")))
+    b=MC.fetchone()
+    MyDB.close()
+
+    return render_template("managebooking.html",booking=b)
+
+@app.route("/user/dashboard/currtreks/manage/<int:id1>/cancel",methods=["GET","POST"])
+def cancel(id1):
+    if session.get("role","").lower() not in ("user","trekker"):
+        return redirect(url_for("login"))
+    
+    MyDB=connect()
+    MC=MyDB.cursor()
+
+    MC.execute("""SELECT b.trek_id,b.id,b.user_id,t.* FROM bookings b JOIN treks t ON b.trek_id=t.id WHERE b.id=? AND b.user_id=?"""
+                ,(id1,session.get("user_id")))
+    b=MC.fetchone()
+    
+    if b is not None:
+        MC.execute("""DELETE FROM bookings WHERE id=?""",(id1,))
+        MC.execute("""UPDATE treks SET available_slots=available_slots+1 WHERE id=?""",(b["trek_id"],))
+        MyDB.commit()
+        
+    MyDB.close()
+    return render_template("cancel.html")
 
 #------------------------------------------------------------------------------------------------------------------------------------------------------
 

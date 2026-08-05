@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+	<h2>AVAILABLE TREK DETAILS</h2>
+	<a class="action-link edit-link" href="{{url_for('availtreks')}}" style="font-size:16px;">Return to Available Treks</a>
+
+	<div class="card layout2">
+		<h3>Trek Information</h3>
+		<p><h4>Trek Name: {{trek.trek_name}}</h4></p>
+		<p><h4>Location: {{trek.location}}</h4></p>
+		<p><h4>Difficulty: {{trek.difficulty}}</h4></p>
+		<p><h4>Trek Duration: {{trek.duration_in_days}} day(s)</h4></p>
+		<p><h4>Available Slots: {{trek.available_slots}}</h4></p>
+		<p><h4>Start Date: {{trek.start_date}}</h4></p>
+		<p><h4>End Date: {{trek.end_date}}</h4></p>
+		<p><h4>Status: {{trek.status.capitalize()}}</h4></p>
+	</div>
+
+	<div class="card layout2">
+		<h3>Book Trek</h3>
+		<p><h4>Click below to book this trek.</h4></p>
+	<a class="action-link edit-link" href="{{url_for('trekconfirm',id1=trek.id)}}">Book Trek</a>
+	</div>
+
+</div>
+
+{% endblock %}
