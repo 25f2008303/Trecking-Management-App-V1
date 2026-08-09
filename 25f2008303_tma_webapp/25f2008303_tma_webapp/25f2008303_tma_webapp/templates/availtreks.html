@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+	<h2>AVAILABLE TREK(S)</h2>
+	<a class="action-link edit-link" href="{{url_for('userdash')}}" style="font-size:16px;">Return to Dashboard</a>
+	<div class="card layout2">
+		{% if treks %}
+		<table>
+		<thead>
+		<tr>
+		<th>ID</th>
+		<th>Trek Name</th>
+		<th>Location</th>
+		<th>Duration(in Days)</th>
+		<th>Available Slots</th>
+		<th>Start Date</th>
+		<th>Option(s)</th>
+		</tr>
+		</thead>
+		
+		<tbody>
+		{% for i in treks %}
+		<tr>
+		<td>{{i.id}}</td>
+		<td>{{i.trek_name}}</td>
+		<td>{{i.location}}</td>
+		<td>{{i.duration_in_days}}</td>
+		<td>{{i.available_slots}}</td>
+		<td>{{i.start_date}}</td>
+		<td><a class="action-link edit-link" href="{{url_for('trekdetails',id1=i.id)}}">Book Now</a></td>
+		</tr>
+		{% endfor %}
+		</tbody>
+		</table>
+		{% else %}
+		<h3>Sorry! No treks or slots are open/available right now! Please check later if new treks/slots are available</h3>
+		<div style="color:#FF0000; text-align:center;"><h4>Note: This page only shows bookings which have not been made by you which are still available to book. 		If you believe a trek should appear but it does not, check your active bookings to confirm if you haven't made an accidental booking.</h4></div>
+		{% endif %}
+	</div>
+</div>
+
+{% endblock %}

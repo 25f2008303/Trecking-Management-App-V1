@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+	<h2>Manage Users</h2>
+	<div style="text-align:right;">
+    		<a class="action-link edit-link" href="{{url_for('admindash')}}" style="font-size:16px;">Return to Dashboard</a>
+	</div>
+
+	<div class="card layout2">
+		{% if users %}
+		<table>
+    		<thead>
+        	<tr>
+            	<th>User ID</th>
+            	<th>Name</th>
+            	<th>Email</th>
+            	<th>Role</th>
+            	<th>Active?</th>
+            	<th>Option(s)</th>
+        	</tr>
+    		</thead>
+    		<tbody>
+
+        	{% for i in users %}
+        	<tr>
+            	<td>{{i.id}}</td>
+            	<td>{{i.FNAME}}</td>
+            	<td>{{i.email}}</td>
+            	<td>{{i.role}}</td>
+            	<td>{{'YES' if i.is_active else 'NO'}}</td>
+            	<td>
+                <a class="action-link edit-link" href="{{url_for('useractivate',id1=i.id)}}">ACTIVATE</a>
+		<a class="action-link delete-link" href="{{url_for('userdeactivate',id1=i.id)}}">DEACTIVATE</a><!--will just change appstat to pending this will handle blacklist as well-->
+
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<h3>No users have registered yet!</h3>
+{% endif %}
+</div>
+
+</div>
+{% endblock %}
