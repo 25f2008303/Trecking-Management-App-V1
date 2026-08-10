@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+	<h2>Manage Staff</h2>
+	<div style="text-align:right;">
+		<a class="action-link edit-link" href="{{url_for('admindash')}}" style="font-size:16px;">Return to Dashboard</a>
+	</div>
+
+	<div class="card layout2">
+		{% if staff %}
+		<table>
+		<thead>	
+                	<tr>
+                    	<th>Staff ID</th>
+                    	<th>Name</th>
+                    	<th>Phone no.</th>
+                    	<th>No. of treks assigned</th>
+                    	<th>Approval Status</th>
+			<th>Options(s)</th>
+                	</tr>
+		</thead>
+            	<tbody>
+                	{% for i in staff %}
+                	<tr>
+                    	<td>{{i.id}}</td>
+                    	<td>{{i.FNAME}}</td>
+                  	<td>{{i.phone_no}}</td>
+                    	<td>{{i.ta}}</td>
+                    	<td>{{i.appstat}}</td>
+			<td>
+			<a class="action-link edit-link" href="{{url_for('staffapprove',id1=i.id)}}">APPROVE</a>
+			<a class="action-link delete-link" href="{{url_for('staffblacklist',id1=i.id)}}">BLACKLIST</a><!--will just change appstat to pending this will handle blacklist as well-->
+			<a class="action-link edit-link" href="{{url_for('staffdel',id1=i.id)}}">DELETE</a>
+			</td>
+                	</tr>
+                	{% endfor %}
+            	</tbody>
+        	</table>
+        	{% else %}
+        		<p><h3>No staff have applied yet!</h3></p>
+        	{% endif %}
+    	</div>
+</div>
+{% endblock %}

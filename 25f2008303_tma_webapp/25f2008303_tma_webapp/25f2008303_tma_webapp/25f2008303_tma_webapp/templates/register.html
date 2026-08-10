@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<div class="container">
+	{% if error %}
+      		<p style="color:red;">{{error}}</p>
+	{% endif %}
+	<br>
+	
+	<div style="text-align:center;">
+		<h2>Register yourself either as a new Trekker or apply here as Staff</h2>
+	</div>
+	<br>
+	
+
+	<form method="post" action="{{url_for('register')}}">
+
+	<p>	
+	<label>Full Name:</label>
+	<input type="text" name="FNAME" required>
+	</p> 
+
+	<p>
+	<label>Email:</label>
+	<input type="email" name="email" required>
+	</p> 
+	
+	<p>
+	<label>Enter Phone Number:</label>
+	<input type="text" name="phone_no" required>
+	</p>
+
+	<p>
+	<label>Create a Password:</label>
+	<input type="password" name="password" required>
+	</p> 
+
+	<p>
+	<label>Confirm above password:</label>
+	<input type="password" name="confirm_password" required>
+	</p> 
+
+	<p>
+	<label>Enter the desired Role(Staff or User)(Required):</label>
+	<input type="text" name="role" required>
+	</p> 
+
+	<p>
+	<button type="submit">Create new account</button>
+	</p>
+
+	</form>
+</div>
+
+{% endblock %}

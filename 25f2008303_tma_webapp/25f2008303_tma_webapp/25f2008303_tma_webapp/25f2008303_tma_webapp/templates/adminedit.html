@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<div class="container">
+	<h2>Add/Edit Treks:</h2>
+	<div style="text-align:right;">
+		<a class="action-link edit-link" href="{{url_for('admindash')}}" style="font-size:16px;">Return to Dashboard</a>
+	</div>
+		
+	<div class="card layout2">
+        	<h4>All Treks</h4>
+        	{% if treks %}
+        	<table>
+		<thead>	
+                	<tr>
+                    	<th>ID</th>
+                    	<th>Trek Name</th>
+                    	<th>Location</th>
+                    	<th>Difficulty</th>
+                    	<th>Days</th>
+                    	<th>Slots</th>
+                    	<th>Status</th>
+                    	<th>Assigned Staff</th>
+			<th>More Actions</th>
+                	</tr>
+		</thead>
+            	<tbody>
+                	{% for trek in treks %}
+                	<tr>
+                    	<td>{{trek.id}}</td>
+                    	<td>{{trek.trek_name}}</td>
+                  	<td>{{trek.location}}</td>
+                    	<td>{{trek.difficulty}}</td>
+                    	<td>{{trek.duration_in_days}}</td>
+                    	<td>{{trek.available_slots}}</td>
+                    	<td>{{trek.status.upper()}}</td>
+                    	<td>{{trek.staff_name if trek.staff_name else "Not assigned yet"}}</td>
+			<td>
+			<a class="action-link edit-link" href="{{url_for('trekedit',id1=trek.id)}}">EDIT</a>
+			<a class="action-link delete-link" href="{{url_for('trekdel',id1=trek.id)}}">DELETE</a>
+			</td>
+                	</tr>
+                	{% endfor %}
+            	</tbody>
+        	</table>
+        	{% else %}
+        		<p><h3>No treks added yet! Add new treks to display their details here</h3></p>
+        	{% endif %}
+    	</div>
+
+	<div class="card layout2">
+        	<h3>Add a new Trek</h3>
+        	<form method="POST" class="fg">
+            		<input type="text" name="trek_name" placeholder="Trek Name" required>
+            		<input type="text" name="location" placeholder="Location" required>
+
+            		<select name="difficulty" required>
+                		<option value="">Select Difficulty</option>
+                		<option value="Easy">EASY</option>
+                		<option value="Moderate">MODERATE</option>
+                		<option value="Hard">HARD</option>
+            		</select>
+
+            		<input type="number" name="duration_in_days" placeholder="Duration(To be entered in number of days)" required>
+            		<input type="number" name="available_slots" placeholder="Available slots" required>
+            		<input type="date" name="start_date">
+            		<input type="date" name="end_date">
+
+            		<select name="assigned_staffid">
+                		<option value="">Assign Staff (Optional)</option>
+                		{% for staff in staff_list %}
+                    			<option value="{{staff.id}}">{{staff.FNAME}}</option>
+                		{% endfor %}
+            		</select>
+
+            		<button type="submit">Add Trek</button>
+        	</form>
+    	</div>
+
+
+    	
+</div>
+
+
+{% endblock %}
+
+

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+	<h2>Your Current Booking(s)</h2>
+	<h3>To manage a booking, click the link next to it</h3>
+	<a class="action-link edit-link" href="{{url_for('userdash')}}" style="font-size:16px;">Return to Dashboard</a>
+
+
+	<div class="card layout2">
+
+		{% if current %}
+		<table>
+		<thead>
+		<tr>
+		<th>Trek Name</th>
+		<th>Booking Date</th>
+		<th>Start Date</th>
+		<th>Trek Status</th>
+		<th>Option(s)</th>
+		</tr>
+		</thead>
+		
+		<tbody>
+		{% for i in current %}
+		<tr>
+		<td>{{i.trek_name}}</td>
+		<td>{{i.booking_date}}</td>
+		<td>{{i.start_date}}</td>
+		<td>{{i.stat1.capitalize()}}</td>
+		<td><a class="action-link edit-link" href="{{url_for('managebooking',id1=i.id)}}">Manage Trek</a></td>
+		</tr>
+		{% endfor %}
+		</tbody>
+		</table>
+
+		{% else %}
+		<h3>No Current Active Bookings!</h3>
+		{% endif %}
+
+	</div>
+{% endblock %}

@@ -1,0 +1,61 @@
+<!-- admin dashboard -->
+
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container" style="text-align:center;">
+	<h1> ADMIN DASHBOARD </h1>
+	<h2>Welcome {{session.get("name")}}</h2>
+	<div class="card layout">
+		<div class="card">
+			<h3>Total Users</h3>
+			<p>{{total_users}}</p>
+		</div>
+
+		<div class="card">
+			<h3>Total Treks</h3>
+			<p>{{total_treks}}</p>
+		</div>
+
+		<div class="card">
+			<h3>Total Staff</h3>
+			<p>{{total_staff}}</p>
+		</div>
+
+		<div class="card">
+			<h3>Total Bookings</h3>
+			<p>{{total_bookings}}</p>
+		</div>
+
+	</div>
+	
+	<div style="text-align:left;"><h3>Choose from following functions:</h3></div>
+
+	<div class="card layout">
+		<div class="card">
+			<a class="action-link edit-link" href="{{url_for('adminedit')}}">
+        		<h3>Add/Edit Treks</h3>
+			</a>	
+		</div>
+
+		<div class="card">
+			<a class="action-link edit-link" href="{{url_for('adminstaffmanage')}}">
+        		<h3>Manage Staff</h3>
+			</a>
+		</div>
+		
+		<div class="card">
+			<a class="action-link edit-link" href="{{url_for('adminusermanage')}}">
+        		<h3>Manage Users</h3>
+			</a>
+		</div>
+
+		<div class="card">
+			<a class="action-link edit-link" href="{{url_for('adminbookhist')}}">
+			<h3>Booking History</h3>
+			</a>
+		</div>
+		
+</div>
+
+{% endblock %}

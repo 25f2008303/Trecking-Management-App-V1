@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<div class="container">
+	<div style="text-align:center;"><h1> Welcome to TREKKING MANAGEMENT APPLICATION </h1></div>
+
+	<div style="text-align:center;">
+		<p><h3>Planning and Managing your Treks.... one at a time...</h3></p>
+	</div>
+	<br>
+	<br>
+
+	
+	<div style="text-align:center;">
+		<a class="action-link edit-link" href="{{url_for('login')}}" style="font-size:18px">LOGIN(FOR EXISTING USERS</a>
+	</div>
+	<br>
+	<br>
+	
+	<div style="text-align:center;">
+		<a class="action-link edit-link" href="{{url_for('register')}}" style="font-size:18px">REGISTER YOURSELF(FOR NEW USERS)</a>
+	</div>
+	<br>
+	<br>
+	
+	<div style="text-align:center;">
+		<a class="action-link edit-link" href="{{url_for('login')}}" style="font-size:18px">ADMIN LOGIN</a>
+	</div>
+
+</div>		
+
+
+{% endblock %}
