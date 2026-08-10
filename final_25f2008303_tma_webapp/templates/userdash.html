@@ -1,0 +1,32 @@
+<!-- user dashboard -->
+
+
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+	<h2>USER/TREKKER DASHBOARD</h2>
+	<h3>Welcome Trekker {{session.get("name")}}</h3>
+	<a class="action-link edit-link" href="{{url_for('useredit')}}">Edit Profile</a>
+	<div class="card layout2">
+		<h3>Available Trek(s)</h3>
+		<h4>Click the link to check currently available treks to you which you have NOT BOOKED(yet)</h4>
+		<p><a class="action-link edit-link" href="{{url_for('availtreks')}}">Click Here</a></p>
+	</div>
+	
+	<div class="card layout2">
+		<h3>Current Bookings(s)</h3>
+		<p><h4>Click the link to check your ACTIVE BOOKED TREKS</h4></p>
+		<a class="action-link edit-link" href="{{url_for('currtreks')}}">Click Here</a>
+	</div>
+
+	<div class="card layout2">
+		<h3>Trek History</h3>
+		<p><h4>Check out your TREK HISTORY</h4></p>
+		<a class="action-link edit-link" href="{{url_for('trekhist')}}">Click Here</a>
+	</div>
+
+</div>
+{% endblock %}
+
+		

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+	<h2>BOOKING HISTORY</h2> 
+	<a class="action-link edit-link" href="{{url_for('userdash')}}" style="font-size:16px;">Return to Dashboard</a>
+
+
+	<div class="card layout2">
+
+		{% if history %}
+		<table>
+		<thead>
+		<tr>
+		<th>Trek Name</th>
+		<th>Booking Date</th>
+		<th>Start Date</th>
+		<th>Duration(in days)</th>
+		</tr>
+		</thead>
+		
+		<tbody>
+		{% for i in history %}
+		<tr>
+		<td>{{i.trek_name}}</td>
+		<td>{{i.booking_date}}</td>
+		<td>{{i.start_date}}</td>
+		<td>{{i.duration_in_days}}</td>
+		</tr>
+		{% endfor %}
+		</tbody>
+		</table>
+		{% else %}
+		<h3>NO TREKS COMPLETED YET!</h3>
+		{% endif %}
+	</div>
+
+
+	
+{% endblock %}

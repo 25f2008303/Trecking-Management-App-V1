@@ -1,0 +1,54 @@
+<!-- staff dashboard -->
+
+{% extends "base.html" %}
+{% block content %}
+
+
+<div class="container">
+	<h2>STAFF DASHBOARD</h2>
+	<h3>Welcome {{session.get("name")}}</h3>
+	<br>
+	<div class="card">
+		<h4>Number of assigned treks(Lifetime): {{assigned_treks|length}}</h4>
+	</div>
+
+	<div class="card layout2">
+		<h3>Information on your Assigned Trek(s)</h3>
+		
+		{% if assigned_treks %}
+		<table>
+		<thead>
+		<tr>
+		<th>ID</th>
+		<th>Trek Name</th>
+		<th>Location</th>
+		<th>Duration(in Days)</th>
+		<th>Start Date</th>
+		<th>Status</th>
+		<th>Manage Trek</th>
+		</tr>
+		</thead>
+
+		<tbody>
+		{% for i in assigned_treks %}
+		<tr>
+		<td>{{i.id}}</td>
+		<td>{{i.trek_name}}</td>
+		<td>{{i.location}}</td>
+		<td>{{i.duration_in_days}}</td>
+		<td>{{i.start_date}}</td>
+		<td>{{i.status}}</td>
+		<td><a class="action-link edit-link" href="{{url_for('trekman',id1=i.id) }}">More Info/Manage</a></td>
+		</tr>
+		{% endfor %}
+		</tbody>
+		</table>
+		{% else %}
+		<h4>No treks have been assigned you(yet)</h4>
+		{% endif %}
+	</div>
+
+</div>
+
+
+{% endblock %}

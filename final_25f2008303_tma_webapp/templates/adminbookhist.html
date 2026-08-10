@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+	<h2>All Booking Records</h2>
+	<div style="text-align:right;">
+    		<a class="action-link edit-link" href="{{url_for('admindash')}}" style="font-size:16px;">Return to Dashboard</a>
+	</div>
+
+	<div class="card layout2">
+		{% if bookings %}
+		<table>
+   		<thead>
+        	<tr>
+            	<th>Booking ID</th>
+            	<th>User</th>
+            	<th>Email</th>
+            	<th>Trek Name</th>
+            	<th>Location</th>
+            	<th>Booking Date</th>
+            	<th>Trek Start</th>
+            	<th>Trek End</th>
+        	</tr>
+    		</thead>
+
+    		<tbody>
+       		{% for b in bookings %}
+        	<tr>
+            	<td>{{b.id}}</td>
+            	<td>{{b.user_name}}</td>
+            	<td>{{b.email}}</td>
+            	<td>{{b.trek_name}}</td>
+            	<td>{{b.location}}</td>
+            	<td>{{b.booking_date}}</td>
+            	<td>{{b.start_date}}</td>
+            	<td>{{b.end_date}}</td>
+        	</tr>
+        	{% endfor %}
+    		</tbody>
+		</table>
+		{% else %}
+		<h3>No bookings found!</h3>
+		{% endif %}
+	</div>
+
+</div>
+
+{% endblock %}

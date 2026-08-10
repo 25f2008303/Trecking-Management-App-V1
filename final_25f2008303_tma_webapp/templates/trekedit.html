@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+	<h2>Edit Trek Details:</h2>
+	<div style="text-align:right;">
+			<a class="action-link edit-link" href="{{url_for('adminedit')}}" style="font-size:16px;">Return to Dashboard</a>
+	</div>
+
+	<div class="card layout2">
+	
+	<form method="POST" class="fg">
+	<input type="text" name="trek_name" value="{{trek.trek_name}}" required>
+            	<input type="text" name="location" value="{{trek.location}}" required>
+
+            	<select name="difficulty" required>
+            	<option value="Easy" {% if trek.difficulty=="Easy" %}selected{% endif %}>Easy</option>
+            	<option value="Moderate"{% if trek.difficulty=="Moderate" %}selected{% endif %}>Moderate</option>
+            	<option value="Hard"{% if trek.difficulty=="Hard" %}selected{% endif %}>Hard</option>
+            	</select>
+
+            	<input type="number" name="duration_in_days" value="{{trek.duration_in_days}}" required>
+            	<input type="number" name="available_slots" value="{{trek.available_slots}}" required>
+            	<input type="date" name="start_date" value="{{trek.start_date}}">
+            	<input type="date" name="end_date" value="{{trek.end_date}}">
+
+            	<select name="status" required>
+                	<option value="open" {% if trek.status=="open" %}selected{% endif %}>Open</option>
+                	<option value="started" {% if trek.status=="started" %}selected{% endif %}>Started</option>
+			<option value="completed" {% if trek.status=="completed" %}selected{% endif %}>Completed</option>
+                	<option value="closed" {% if trek.status=="closed" %}selected{% endif %}>Closed</option>
+
+            	</select>
+
+            	<select name="assigned_staffid">
+                	<option value="">Assign Staff(Optional)</option>
+                	{% for staff in staff_list %}
+                    	<option value="{{staff.id}}"
+                    	{% if trek.assigned_staffid==staff.id %}selected{% endif %}>
+                    	{{staff.FNAME}}
+                    	</option>
+                	{% endfor %}
+            	</select>
+
+		<button type="submit">Update Trek Details</button>
+        </form>
+    	</div>
+</div>
+
+{% endblock %}
