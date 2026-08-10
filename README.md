@@ -9,7 +9,7 @@ A Flask‑based web app built for the MAD‑1 project (IITM BS). It helps admins
 - Plain HTML/CSS (no bootstrap)
 
 ## Important Note on Folder Structure
-
+## FINAL PROJECT FOLDER UNDER THE FOLDER: final_25f2008303_tma_webapp
 While uploading milestones to GitHub, a nesting issue occurred where each milestone upload created an extra nested folder inside the previous one, instead of updating files in place. Initially, a few files were deleted thinking it was a mistake, but this was stopped early on to avoid erasing the commit history of earlier milestones. As a result, the extra nested folders have been intentionally kept as-is to preserve milestone history.
 
 **The latest, working version of the project is inside the 3rd nested folder level.** Please navigate three folders deep from the repository root to find the final `app.py`, `database.py`, and `templates/` folder to run the project.
@@ -75,6 +75,10 @@ While uploading milestones to GitHub, a nesting issue occurred where each milest
 
 ### Extra Milestone:
 - Added a Edit users function in user dashboard.
+  
+### FINAL MILESTONE: 
+- Fixed error in booking date not showing up in user bookings because of wrong sql query
+- Uploaded entire folder again under name final_submission_tma_webapp
 
 ## Notes
 
